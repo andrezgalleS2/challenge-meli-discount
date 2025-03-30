@@ -1,4 +1,4 @@
-package com.technical.test.meli.challenge.mocks;
+package com.technical.test.meli.challenge.Mocks;
 
 import com.technical.test.meli.challenge.Application.Dto.ItemsResponse.BodyResponse;
 import com.technical.test.meli.challenge.Application.Dto.ItemsResponse.ItemsResponse;

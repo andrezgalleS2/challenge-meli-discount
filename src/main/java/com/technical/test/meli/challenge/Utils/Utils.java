@@ -1,4 +1,4 @@
-package com.technical.test.meli.challenge.utils;
+package com.technical.test.meli.challenge.Utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

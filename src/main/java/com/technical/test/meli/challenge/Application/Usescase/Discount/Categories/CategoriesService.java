@@ -6,8 +6,7 @@ import com.technical.test.meli.challenge.Application.Dto.categories.CategoriesRe
 import com.technical.test.meli.challenge.Application.Dto.categories.CategoryResponse;
 import com.technical.test.meli.challenge.Infrastructure.Adapter.GetCategories.IExternalGetCategories;
 import com.technical.test.meli.challenge.Infrastructure.Adapter.GetItems.IExternalGetItems;
-import com.technical.test.meli.challenge.mocks.Mocks;
-import com.technical.test.meli.challenge.utils.Utils;
+import com.technical.test.meli.challenge.Utils.Utils;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
