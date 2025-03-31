@@ -9,10 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class ItemsService implements Items {
             //List<ItemsResponse> mockItems = Mocks.getItemsResponse();
             //ItemsResponse[] items = mockItems.toArray(new ItemsResponse[0]);
 
-            Map<Number, List<ItemsResponse>> groupedItemsForSeller = Utils.groupItemsBySellerId(items);
+            Map<Number, List<ItemsResponse>> groupedItemsForSeller = groupItemsBySellerId(items);
             List<String> nonOverlappingItemIds = new ArrayList<>();
 
 
@@ -48,7 +47,7 @@ public class ItemsService implements Items {
 
                 List<ItemsResponse> nonOverlappingItems = Utils.getLargestNonOverlappingSet(itemsIterable);
 
-                Utils.sortItemsByDateRange(Objects.requireNonNull(nonOverlappingItems));
+                sortItemsByDateRange(Objects.requireNonNull(nonOverlappingItems));
 
                 nonOverlappingItemIds.addAll(nonOverlappingItems.stream()
                         .map(item -> item.getBody().getId())
@@ -67,5 +66,28 @@ public class ItemsService implements Items {
             return null;
         }
 
+    }
+
+    public static Map<Number, List<ItemsResponse>> groupItemsBySellerId(ItemsResponse[] items) {
+        Map<Number, List<ItemsResponse>> groupedItems = new HashMap<>();
+        for (ItemsResponse item : items) {
+            Number sellerId = item.getBody().getSellerId();
+            groupedItems.computeIfAbsent(sellerId, k -> new ArrayList<>()).add(item);
+        }
+        return groupedItems;
+    }
+
+    public static void sortItemsByDateRange(List<ItemsResponse> items) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        items.sort((item1, item2) -> {
+            try {
+                Date date1 = sdf.parse(item1.getBody().getDateCreated());
+                Date date2 = sdf.parse(item2.getBody().getDateCreated());
+                return date1.compareTo(date2);
+            } catch (ParseException e) {
+                logger.error("Error in sortItemsByDateRange", e);
+                return 0;
+            }
+        });
     }
 }

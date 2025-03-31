@@ -24,15 +24,6 @@ public class Utils {
         return ids.matches("^(MLA\\d+)(,MLA\\d+)*$");
     }
 
-    public static Map<Number, List<ItemsResponse>> groupItemsBySellerId(ItemsResponse[] items) {
-        Map<Number, List<ItemsResponse>> groupedItems = new HashMap<>();
-        for (ItemsResponse item : items) {
-            Number sellerId = item.getBody().getSellerId();
-            groupedItems.computeIfAbsent(sellerId, k -> new ArrayList<>()).add(item);
-        }
-        return groupedItems;
-    }
-
     public static List<ItemsResponse> getLargestNonOverlappingSet(List<ItemsResponse> items) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         Map<ItemsResponse, Date[]> dateMap = new HashMap<>();
@@ -72,19 +63,6 @@ public class Utils {
             return null;
         }
 
-    }
-    public static void sortItemsByDateRange(List<ItemsResponse> items) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        items.sort((item1, item2) -> {
-            try {
-                Date date1 = sdf.parse(item1.getBody().getDateCreated());
-                Date date2 = sdf.parse(item2.getBody().getDateCreated());
-                return date1.compareTo(date2);
-            } catch (ParseException e) {
-                logger.error("Error in sortItemsByDateRange", e);
-                return 0;
-            }
-        });
     }
 
 }
