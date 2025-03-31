@@ -52,7 +52,7 @@ La API estará disponible en `http://localhost:8080`.
 
 ## Estructura y arquitectura de meli-discount
 
-El proyecto sigue los principios de **Clean Architecture**, asegurando modularidad, separación de responsabilidades y facilidad de escalabilidad a futuro. La estructura del file system es la siguiente:
+El proyecto sigue los principios de **Clean Architecture**, asegurando modularidad y separación de responsabilidades. La estructura del file system es la siguiente:
 
 <img width="373" alt="image" src="https://github.com/user-attachments/assets/9edea16a-0237-49f2-aed1-16f95bc8ce8a" />
 
