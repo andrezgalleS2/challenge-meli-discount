@@ -17,7 +17,7 @@ Esta API RESTful permite gestionar descuentos exclusivos para vendedores en Merc
 ## Instalación y Ejecución
 
 ### Prerrequisitos
-- Java 17 Coretto
+- Java 17 Coretto (17.0.10)
 - Maven
 
 ### Instalación
