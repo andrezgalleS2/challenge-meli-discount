@@ -23,6 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Collections;
 
 @Component
@@ -32,6 +33,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Value("${jwt.secret}")
     private String SECRET_KEY;
+
+    @Value("${basic.auth.username}")
+    private String basicAuthUsername;
+
+    @Value("${basic.auth.password}")
+    private String basicAuthPassword;
 
     private Key getKey() {
         return Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
@@ -47,6 +54,31 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
 
         if (requestURI.equals("/api/token/generate")) {
+            if (authHeader == null || !authHeader.startsWith("Basic ")) {
+                sendErrorResponse.setCode(401);
+                sendErrorResponse.setMessage("Credenciales no encontradas o formato incorrecto");
+                response.setStatus(401);
+                response.setContentType("application/json");
+                response.getWriter().write(objectMapper.writeValueAsString(sendErrorResponse));
+                return;
+            }
+
+            String base64Credentials = authHeader.substring(6);
+            String credentials = new String(Base64.getDecoder().decode(base64Credentials), StandardCharsets.UTF_8);
+            String[] values = credentials.split(":", 2);
+
+            String username = values[0];
+            String password = values[1];
+
+            if (!basicAuthUsername.equals(username) || !basicAuthPassword.equals(password)) {
+                sendErrorResponse.setCode(401);
+                sendErrorResponse.setMessage("Credenciales inválidas");
+                response.setStatus(401);
+                response.setContentType("application/json");
+                response.getWriter().write(objectMapper.writeValueAsString(sendErrorResponse));
+                return;
+            }
+
             chain.doFilter(request, response);
             return;
         }
