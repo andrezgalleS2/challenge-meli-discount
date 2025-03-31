@@ -25,9 +25,6 @@ Esta API RESTful permite gestionar descuentos exclusivos para vendedores en Merc
 # Clonar el repositorio
 $ git clone https://github.com/tu_usuario/meli-discount.git
 $ cd meli-discount
-
-# Construir la aplicación
-$ mvn clean install
 ```
 
 ### Ejecución
