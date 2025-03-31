@@ -58,7 +58,105 @@ El proyecto sigue los principios de **Clean Architecture**, asegurando modularid
 
 Esto se hace con el fin que a futuro se pueda tener una facilidad de escalar el codigo y trabajar en responsabilidades unicas por personas o equipos.
 
-##Archivos de interés
+
+## 📂 Archivos de Interés
+
+A continuación, se describen algunos de los archivos clave en la implementación del proyecto:
+
+### 1️⃣ `Api/Discount/DiscountController.java`
+**Responsabilidad:**  
+Este controlador maneja los endpoints relacionados con los descuentos de productos en Mercado Libre.  
+
+**Principales funcionalidades:**  
+- `GET /api/meli/discount` → Obtiene los productos con descuento.
+- `GET /api/meli/discount/categories` → Obtiene los productos con descuento por categoría.
+
+### 2️⃣ `Api/Token/TokenController.java`
+**Responsabilidad:**  
+Proporciona un endpoint para la generación de tokens JWT necesarios para la autenticación.  
+
+**Principales funcionalidades:**  
+- `GET /api/token/generate` → Genera un token de autenticación JWT.
+
+### 3️⃣ `Application/Usescase/Discount/Categories/CategoriesService.java`
+**Responsabilidad:**  
+Implementa la lógica de negocio para obtener productos categorizados por descuento.
+
+**Principales funcionalidades:**  
+- Valida los IDs de los productos.
+- Obtiene información de categorías a través de la API de Mercado Libre.
+- Agrupa los productos por categoría y filtra los conjuntos más relevantes.
+
+### 4️⃣ `Application/Usescase/Discount/Items/ItemsService.java`
+**Responsabilidad:**  
+Encargado de la lógica para obtener productos con descuento.
+
+**Principales funcionalidades:**  
+- Agrupa productos por vendedor.
+- Filtra productos según la mejor combinación de descuentos.
+- Ordena los productos según su fecha de creación.
+
+### 5️⃣ `Infrastructure/Adapter/GetCategories/ExternalGetCategoriesPort.java`
+**Responsabilidad:**  
+Adaptador que interactúa con la API externa de Mercado Libre para obtener información de categorías.
+
+**Principales funcionalidades:**  
+- Realiza peticiones HTTP a la API de Mercado Libre.
+- Incluye autenticación con **Bearer Token**.
+- Maneja respuestas y errores de la API externa.
+
+Esta estructura modular permite desacoplar la lógica de negocio de la infraestructura y facilita la escalabilidad del proyecto. 🚀
+
+### 6️⃣ Infrastructure/Jwt
+
+### `JwtTokenFilter.java`
+Filtro de seguridad que intercepta solicitudes HTTP para validar la autenticación del usuario mediante JWT o autenticación básica en ciertos casos.
+
+**Principales funcionalidades:**  
+- Si la solicitud es a `/api/token/generate`, se valida con autenticación básica (`Basic Auth`).
+- Para otras rutas, se requiere un **token JWT válido** en el encabezado `Authorization`.
+-  **Manejo de errores**:
+- Si el token es inválido o está ausente, responde con `401 Unauthorized` y un mensaje JSON descriptivo.
+
+---
+
+### `JwtTokenProvider.java`
+Componente responsable de generar tokens JWT para la autenticación de usuarios.
+
+**Principales funcionalidades:**  
+- 🔑 **Firma del Token**: Utiliza `HS256` para garantizar seguridad.
+- 🕒 **Expiración configurable**: El tiempo de validez del token es configurable mediante propiedades.
+- 📌 **Método principal**:
+- `createToken(String username)`: Genera un JWT válido para el usuario proporcionado.
+
+---
+
+### 7️⃣ Mocks
+
+### `Mocks.java`
+Clase de utilidades para generar datos simulados utilizados en pruebas.
+
+**Principales funcionalidades:**  
+-  **Generación de datos de prueba**:
+- `getItemsResponse()`: Retorna una lista simulada de `ItemsResponse` con datos ficticios.
+- `getItemsForCategory(String categoryId)`: Simula la estructura de categorías de Mercado Libre.
+- **Estructuras dinámicas**:
+- Usa métodos auxiliares para crear categorías y productos de prueba.
+
+---
+
+### 8️⃣ Utils
+
+### `Utils.java`
+Clase de utilidades con funciones auxiliares para la aplicación.
+
+**Principales funcionalidades:**  
+-  **Conversión de datos**:
+- `convertToJson(T object)`: Convierte un objeto a formato JSON con formato legible.
+-  **Validación de IDs**:
+- `isValidIds(String ids)`: Verifica que los IDs sigan el formato correcto (`MLAxxxx`).
+- **Optimización de conjuntos de datos**:
+- `getLargestNonOverlappingSet(List<ItemsResponse> items)`: Implementa un algoritmo para encontrar el conjunto más grande de elementos sin superposición temporal.
 
 
 
