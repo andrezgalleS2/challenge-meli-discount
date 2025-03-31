@@ -1,11 +1,14 @@
 # Meli Discount API
 
+ ##Bienvenidos 😁
+
 ## Descripción
-Esta API RESTful permite gestionar descuentos exclusivos para vendedores en Mercado Libre, garantizando que solo un ítem activo por vendedor tenga el **Meli Discount**. Además, soporta la segmentación de descuentos por categorías.
+Esta API REST permite gestionar descuentos exclusivos para vendedores en Mercado Libre, garantizando que solo un ítem activo por vendedor tenga el **Meli Discount**. Además, soporta la segmentación de descuentos por categorías tal cual como se requiere en el challenge presentado.
 
 ## Diseño de arquitectura
 ![meli discount architecture](https://github.com/user-attachments/assets/3de36c91-6145-425d-9214-ec0ef3eb22ed)
 
+En este diseño he querido plasmar como aborde la solución desde un concepto macro donde puedo tener una visión clara de como mi desarrollo debe comportarse y conectarse según la lógica de negocio, teniendo conexiones al api externa de mercado libre , autenticando y autorizando la comunicación interna de mis endpoints y los scopess de cada sistema.
 
 ## Tecnologías Utilizadas
 - **Lenguaje:** Java 17
@@ -19,6 +22,7 @@ Esta API RESTful permite gestionar descuentos exclusivos para vendedores en Merc
 ### Prerrequisitos
 - Java 17 Coretto (17.0.10)
 - Maven
+- Intellij Idea
 
 ### Instalación
 ```sh
@@ -27,11 +31,18 @@ $ git clone https://github.com/tu_usuario/meli-discount.git
 $ cd meli-discount
 ```
 
+Luego de clonar nuestro repositorio procederemos abrir el proyecto en Intellij y nos iremos al apartado de project structure.
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/5c745746-550a-473e-b084-dcc4322bc99c" />
+
+En el apartado de project structure veremos directamente la configuración del SDK para nuestro proyecto, por favor realizar la siguiente configuración para ejecutar el proyecto.
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/4ad9d447-048f-44ed-8f9b-1780b68849b4" />
+y como Language level SDK Default
+
 ### Ejecución
-```sh
-# Correr la aplicación
-$ mvn spring-boot:run
-```
+
+Después de haber configurado el entorno podremos runear el proyecto directamente desde el archivo *ChallengeMeliDiscountApplication*
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/1b4ce21c-af2c-4743-91e9-75f2a61db4f4" />
+
 
 La API estará disponible en `http://localhost:8080`.
 
