@@ -58,6 +58,10 @@ El proyecto sigue los principios de **Clean Architecture**, asegurando modularid
 
 Esto se hace con el fin que a futuro se pueda tener una facilidad de escalar el codigo y trabajar en responsabilidades unicas por personas o equipos.
 
+##Archivos de interés
+
+
+
 ## Endpoints
 
 ### Generar Token
