@@ -124,9 +124,9 @@ Filtro de seguridad que intercepta solicitudes HTTP para validar la autenticaci�
 Componente responsable de generar tokens JWT para la autenticación de usuarios.
 
 **Principales funcionalidades:**  
-- 🔑 **Firma del Token**: Utiliza `HS256` para garantizar seguridad.
-- 🕒 **Expiración configurable**: El tiempo de validez del token es configurable mediante propiedades.
-- 📌 **Método principal**:
+-  **Firma del Token**: Utiliza `HS256` para garantizar seguridad.
+-  **Expiración configurable**: El tiempo de validez del token es configurable mediante propiedades.
+-  **Método principal**:
 - `createToken(String username)`: Genera un JWT válido para el usuario proporcionado.
 
 ---
@@ -156,7 +156,7 @@ Clase de utilidades con funciones auxiliares para la aplicación.
 -  **Validación de IDs**:
 - `isValidIds(String ids)`: Verifica que los IDs sigan el formato correcto (`MLAxxxx`).
 - **Optimización de conjuntos de datos**:
-- `getLargestNonOverlappingSet(List<ItemsResponse> items)`: Implementa un algoritmo para encontrar el conjunto más grande de elementos sin superposición temporal.
+- `getLargestNonOverlappingSet(List<ItemsResponse> items)`: Implementa un algoritmo para encontrar el conjunto más grande de elementos sin solaparse los descuentos.
 
 
 
