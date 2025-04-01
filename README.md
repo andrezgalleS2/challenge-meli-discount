@@ -18,6 +18,7 @@ Esta API REST permite gestionar descuentos exclusivos para vendedores en Mercado
 ## Recursos de consumo
 
 Token: para consumir el token y poder tener acceso a las Apis de meli-discount, tengremos que consumir el servicio de token con unas cabeceras de basic auth:
+
 user:315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3
 pass:c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646
 
@@ -197,19 +198,19 @@ Clase de utilidades con funciones para validación de IDs, conversión de objeto
 
 ### Generar Token
 ```sh
-curl --location 'http://localhost:8080/api/token/generate' \
+curl --location 'https://storied-shelter-455505-b3.uc.r.appspot.com/api/token/generate' \
 --header 'Cookie: JSESSIONID=E4BBF30322D98082D2A19C2E937D5F09'
 ```
 
 ### Obtener Ítems con Meli Discount
 ```sh
-curl --location 'http://localhost:8080/api/meli/discount?item_ids=MLA1747839094,MLA1641136702' \
+curl --location 'https://storied-shelter-455505-b3.uc.r.appspot.com/api/meli/discount?item_ids=MLA1747839094,MLA1641136702' \
 --header 'Authorization: Bearer TU_TOKEN_AQUI'
 ```
 
 ### Obtener Categorías de los Ítems
 ```sh
-curl --location 'http://localhost:8080/api/meli/discount/categories?item_ids=MLA1747839094%2CMLA1641136702' \
+curl --location 'https://storied-shelter-455505-b3.uc.r.appspot.com/api/meli/discount/categories?item_ids=MLA1747839094%2CMLA1641136702' \
 --header 'Authorization: Bearer TU_TOKEN_AQUI' \
 --header 'Cookie: JSESSIONID=E4BBF30322D98082D2A19C2E937D5F09'
 ```
