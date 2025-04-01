@@ -16,17 +16,13 @@ env_variables:
   SPRING_PROFILES_ACTIVE: "prod"
   basic:
     auth:
-      username:
-        69bd2211a05e151338291eb88add1fcdd30966b4d92a1de7f3fb651f3e5078db
-      password:
-        a38a93d531f47f114f2daf20814566dff658615eb2dc20f2d813b95fc5746160
+      username: "69bd2211a05e151338291eb88add1fcdd30966b4d92a1de7f3fb651f3e5078db"
+      password: "a38a93d531f47f114f2daf20814566dff658615eb2dc20f2d813b95fc5746160"
 
   external:
     api:
       auth:
-        token:
-          TEST-8880838102327336-032800-217e4c4d52a6061af92f91ab09754f1b-2354988343
+        token: "TEST-8880838102327336-032800-217e4c4d52a6061af92f91ab09754f1b-2354988343"
 
   jwt:
-    secret:
-      WG4ycjV1OHgvQT9EKEcrS2JQZVNoVmtZcDNzNnY5eSQ=
+    secret: "WG4ycjV1OHgvQT9EKEcrS2JQZVNoVmtZcDNzNnY5eSQ="
