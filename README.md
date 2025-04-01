@@ -48,7 +48,7 @@ Después de haber configurado el entorno podremos runear el proyecto directament
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/1b4ce21c-af2c-4743-91e9-75f2a61db4f4" />
 
 
-La API estará disponible en `http://localhost:8080`.
+El proyecto tendrá como puerto de hospedaje `http://localhost:8080`.
 
 ## Estructura y arquitectura de meli-discount
 
