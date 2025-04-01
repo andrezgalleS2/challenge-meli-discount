@@ -7,10 +7,10 @@
 - [Diseño de arquitectura](#Diseño-de-arquitectura)
 - [Tecnologías Utilizadas](#Tecnologías-Utilizadas)
 - [Instalación y Ejecución](#Instalación-y-Ejecución)
-- [Arquitectura por Capas en Spring Boot](#Arquitectura-por-Capas-en-SpringBoot)
+- [Arquitectura por Capas en Spring Boot](#arquitectura-por-capas-en-spring-boot)
 - [Archivos de Interés](#Archivos-de-Interés)
 - [Endpoints](#Endpoints)
-- [Consideraciones para Escalar el Proyecto a 100k RPM ](#Consideraciones-para-Escalar-el-Proyecto-a-100kRPM)
+- [Consideraciones para Escalar el Proyecto a 100k RPM ](#consideraciones-para-Escalar-el-Proyecto-a-100kRPM)
 
 ## Descripción
 Esta API REST permite gestionar descuentos exclusivos para vendedores en Mercado Libre, garantizando que solo un ítem activo por vendedor tenga el **Meli Discount**. Además, soporta la segmentación de descuentos por categorías tal cual como se requiere en el challenge presentado.
