@@ -8,7 +8,7 @@ Esta API REST permite gestionar descuentos exclusivos para vendedores en Mercado
 ## Diseño de arquitectura
 ![meli discount architecture](https://github.com/user-attachments/assets/3de36c91-6145-425d-9214-ec0ef3eb22ed)
 
-En este diseño he querido plasmar como aborde la solución desde un concepto macro donde puedo tener una visión clara de como mi desarrollo debe comportarse y conectarse según la lógica de negocio, teniendo conexiones al api externa de mercado libre , autenticando y autorizando la comunicación interna de mis endpoints y los scopess de cada sistema.
+En este diseño he querido plasmar como aborde la solución desde un concepto macro donde puedo tener una visión clara de como mi desarrollo debe comportarse y conectarse según la lógica de negocio, teniendo conexiones al api externa de mercado libre , autenticando y autorizando la comunicación interna de mis endpoints y los scopes de cada sistema.
 
 ## Tecnologías Utilizadas
 - **Lenguaje:** Java 21
