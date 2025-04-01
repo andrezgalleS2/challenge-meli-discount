@@ -1,4 +1,4 @@
-[meli-discount.postman_collection.json](https://github.com/user-attachments/files/19546787/meli-discount.postman_collection.json)# Meli Discount API
+# Meli Discount API
 
  ## Bienvenidos 😁
 
@@ -22,7 +22,10 @@ user:315f5bdb76d078c43b8ac0064e4a0164612b1fce77c869345bfc94c75894edd3
 pass:c775e7b757ede630cd0aa1113bd102661ab38829ca52a6422ab782862f268646
 
 Comparto de igual manera la colección de postman dividida en local y prod
+[meli-discount.postman_collection.json](https://github.com/user-attachments/files/19546787/meli-discount.postman_collection.json)
 
+## Url de servicio en producción:
+### https://storied-shelter-455505-b3.uc.r.appspot.com
 
 ## Diseño de arquitectura
 ![meli discount architecture](https://github.com/user-attachments/assets/3de36c91-6145-425d-9214-ec0ef3eb22ed)
