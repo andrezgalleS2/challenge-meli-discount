@@ -11,7 +11,7 @@ Esta API REST permite gestionar descuentos exclusivos para vendedores en Mercado
 En este diseño he querido plasmar como aborde la solución desde un concepto macro donde puedo tener una visión clara de como mi desarrollo debe comportarse y conectarse según la lógica de negocio, teniendo conexiones al api externa de mercado libre , autenticando y autorizando la comunicación interna de mis endpoints y los scopess de cada sistema.
 
 ## Tecnologías Utilizadas
-- **Lenguaje:** Java 17
+- **Lenguaje:** Java 21
 - **Framework:** Spring Boot
 - **Autenticación:** JSON Web Tokens (JWT)
 - **Integración con Mercado Libre:** APIs de Items y Categorías
@@ -20,7 +20,7 @@ En este diseño he querido plasmar como aborde la solución desde un concepto ma
 ## Instalación y Ejecución
 
 ### Prerrequisitos
-- Java 17 Coretto (17.0.10)
+- Java 21 Coretto (21.0.6)
 - Maven
 - Intellij Idea
 
@@ -37,7 +37,7 @@ Luego de clonar nuestro repositorio procederemos abrir el proyecto en Intellij y
 
 En el apartado de project structure veremos directamente la configuración del SDK para nuestro proyecto, por favor realizar la siguiente configuración para ejecutar el proyecto.
 
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/4ad9d447-048f-44ed-8f9b-1780b68849b4" />
+<img width="1433" alt="image" src="https://github.com/user-attachments/assets/25805024-fde6-4adb-8958-19af388ccd13" />
 
 y como Language level SDK Default
 
@@ -63,102 +63,123 @@ Esto se hace con el fin que a futuro se pueda tener una facilidad de escalar el 
 
 A continuación, se describen algunos de los archivos clave en la implementación del proyecto:
 
-### 1️⃣ `Api/Discount/DiscountController.java`
-**Responsabilidad:**  
-Este controlador maneja los endpoints relacionados con los descuentos de productos en Mercado Libre.  
+## 📘 Challenge Meli Discount API
+
+Este repositorio contiene la implementación de la API de Challenge Meli Discount, la cual interactúa con las APIs de Mercado Libre para obtener información de productos y categorías, aplicando descuentos según las reglas definidas.
+
+### 📂 Archivos de Interés
+
+### 1️⃣ ExternalGetCategoriesPort.java
+
+**Ubicación:** `adapter/impl/ExternalGetCategoriesPort`
+
+**Descripción:**
+Clase encargada de consumir la API de Mercado Libre para obtener las categorías de productos.
 
 **Principales funcionalidades:**  
-- `GET /api/meli/discount` → Obtiene los productos con descuento.
-- `GET /api/meli/discount/categories` → Obtiene los productos con descuento por categoría.
-
-### 2️⃣ `Api/Token/TokenController.java`
-**Responsabilidad:**  
-Proporciona un endpoint para la generación de tokens JWT necesarios para la autenticación.  
-
-**Principales funcionalidades:**  
-- `GET /api/token/generate` → Genera un token de autenticación JWT.
-
-### 3️⃣ `Application/Usescase/Discount/Categories/CategoriesService.java`
-**Responsabilidad:**  
-Implementa la lógica de negocio para obtener productos categorizados por descuento.
-
-**Principales funcionalidades:**  
-- Valida los IDs de los productos.
-- Obtiene información de categorías a través de la API de Mercado Libre.
-- Agrupa los productos por categoría y filtra los conjuntos más relevantes.
-
-### 4️⃣ `Application/Usescase/Discount/Items/ItemsService.java`
-**Responsabilidad:**  
-Encargado de la lógica para obtener productos con descuento.
-
-**Principales funcionalidades:**  
-- Agrupa productos por vendedor.
-- Filtra productos según la mejor combinación de descuentos.
-- Ordena los productos según su fecha de creación.
-
-### 5️⃣ `Infrastructure/Adapter/GetCategories/ExternalGetCategoriesPort.java`
-**Responsabilidad:**  
-Adaptador que interactúa con la API externa de Mercado Libre para obtener información de categorías.
-
-**Principales funcionalidades:**  
-- Realiza peticiones HTTP a la API de Mercado Libre.
-- Incluye autenticación con **Bearer Token**.
-- Maneja respuestas y errores de la API externa.
-
-Esta estructura modular permite desacoplar la lógica de negocio de la infraestructura y facilita la escalabilidad del proyecto. 🚀
-
-### 6️⃣ Infrastructure/Jwt
-
-### `JwtTokenFilter.java`
-Filtro de seguridad que intercepta solicitudes HTTP para validar la autenticación del usuario mediante JWT o autenticación básica en ciertos casos.
-
-**Principales funcionalidades:**  
-- Si la solicitud es a `/api/token/generate`, se valida con autenticación básica (`Basic Auth`).
-- Para otras rutas, se requiere un **token JWT válido** en el encabezado `Authorization`.
--  **Manejo de errores**:
-- Si el token es inválido o está ausente, responde con `401 Unauthorized` y un mensaje JSON descriptivo.
+- **Consumo de API externa:** Utiliza `RestTemplate` para realizar solicitudes GET a la API de Mercado Libre.
+- **Autenticación:** Agrega el token de autorización en la cabecera de la petición.
+- **Manejo de errores:** Registra en logs cualquier error en la consulta de categorías.
 
 ---
 
-### `JwtTokenProvider.java`
-Componente responsable de generar tokens JWT para la autenticación de usuarios.
+### 2️⃣ ExternalGetItemsPort.java
+
+**Ubicación:** `adapter/impl/ExternalGetItemsPort`
+
+**Descripción:**
+Clase encargada de obtener información de productos desde la API de Mercado Libre.
 
 **Principales funcionalidades:**  
--  **Firma del Token**: Utiliza `HS256` para garantizar seguridad.
--  **Expiración configurable**: El tiempo de validez del token es configurable mediante propiedades.
--  **Método principal**:
-- `createToken(String username)`: Genera un JWT válido para el usuario proporcionado.
+- **Consumo de API externa:** Realiza solicitudes GET para obtener los detalles de los productos según los identificadores proporcionados.
+- **Autenticación:** Usa `RestTemplate` con el token de autorización.
+- **Gestión de errores:** Captura excepciones y reporta errores en logs.
 
 ---
 
-### 7️⃣ Mocks
+### 3️⃣ DiscountController.java
 
-### `Mocks.java`
-Clase de utilidades para generar datos simulados utilizados en pruebas.
+**Ubicación:** `controller/DiscountController`
+
+**Descripción:**
+Controlador que expone endpoints para obtener información de productos con descuento y por categoría.
 
 **Principales funcionalidades:**  
--  **Generación de datos de prueba**:
-- `getItemsResponse()`: Retorna una lista simulada de `ItemsResponse` con datos ficticios.
-- `getItemsForCategory(String categoryId)`: Simula la estructura de categorías de Mercado Libre.
-- **Estructuras dinámicas**:
-- Usa métodos auxiliares para crear categorías y productos de prueba.
+- **`/api/meli/discount`**: Recibe una lista de identificadores de productos y devuelve información con descuentos aplicados.
+- **`/api/meli/discount/categories`**: Permite obtener información de productos con descuento agrupados por categoría.
 
 ---
 
-### 8️⃣ Utils
+### 4️⃣ TokenController.java
 
-### `Utils.java`
-Clase de utilidades con funciones auxiliares para la aplicación.
+**Ubicación:** `controller/TokenController`
+
+**Descripción:**
+Controlador encargado de la generación de tokens de autenticación.
 
 **Principales funcionalidades:**  
--  **Conversión de datos**:
-- `convertToJson(T object)`: Convierte un objeto a formato JSON con formato legible.
--  **Validación de IDs**:
-- `isValidIds(String ids)`: Verifica que los IDs sigan el formato correcto (`MLAxxxx`).
-- **Optimización de conjuntos de datos**:
-- `getLargestNonOverlappingSet(List<ItemsResponse> items)`: Implementa un algoritmo para encontrar el conjunto más grande de elementos sin solaparse los descuentos.
+- **`/api/token/generate`**: Genera un nuevo token de autenticación necesario para consumir las APIs externas.
 
+---
+### 5️⃣ Seguridad
 
+#### JwtTokenFilter.java
+
+**Ubicación:** `security/JwtTokenFilter`
+
+**Descripción:**  
+Filtro de seguridad que valida los tokens JWT en cada solicitud, asegurando la autenticación del usuario antes de permitir el acceso a los recursos protegidos.
+
+---
+
+#### JwtTokenProvider.java
+
+**Ubicación:** `security/JwtTokenProvider`
+
+**Descripción:**  
+Proveedor de tokens JWT, encargado de generar tokens de acceso con firma HMAC y gestionar su expiración.
+
+---
+
+### 6️⃣ Servicios
+
+#### CategoriesService.java
+
+**Ubicación:** `service/CategoriesService`
+
+**Descripción:**  
+Implementación del servicio de categorías. Recupera información de categorías basándose en los IDs de los productos, asegurando que los datos sean correctos y sin superposición.
+
+---
+
+#### ItemsService.java
+
+**Ubicación:** `service/ItemsService`
+
+**Descripción:**  
+Servicio para obtener productos con descuentos. Filtra y agrupa los productos por vendedor, asegurando que las fechas de creación de los productos sean consideradas en la selección.
+
+---
+
+#### TokenService.java
+
+**Ubicación:** `service/TokenService`
+
+**Descripción:**  
+Servicio encargado de la generación de tokens JWT, asegurando autenticación basada en credenciales preconfiguradas.
+
+---
+
+### 7️⃣ Utilidades
+
+#### FunctionsUtils.java
+
+**Ubicación:** `utils/FunctionsUtils`
+
+**Descripción:**  
+Clase de utilidades con funciones para validación de IDs, conversión de objetos a JSON y lógica para encontrar conjuntos óptimos de productos sin superposición temporal.
+
+---
 
 ## Endpoints
 
@@ -224,4 +245,6 @@ En este escenario, el sistema se puede distribuir en instancias, como en pods de
 
 
 ## Contacto
-Si tienes dudas o mejoras, puedes contactarme en `tu.email@dominio.com`.
+### Andrés Gallego Tovar 👷.
+### Email: andrezgalle01@gmail.com - andres.gallegot@ecci.edu.co
+### Tel: +57 312 661 3327
