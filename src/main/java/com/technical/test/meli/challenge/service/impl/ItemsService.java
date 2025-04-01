@@ -3,6 +3,7 @@ package com.technical.test.meli.challenge.service.impl;
 import com.technical.test.meli.challenge.dto.discount.DiscountItemsResponse;
 import com.technical.test.meli.challenge.dto.itemsResponse.ItemsResponse;
 import com.technical.test.meli.challenge.adapter.IExternalGetItems;
+import com.technical.test.meli.challenge.mocks.Mocks;
 import com.technical.test.meli.challenge.util.Constants;
 import com.technical.test.meli.challenge.util.FunctionsUtils;
 import com.technical.test.meli.challenge.service.Items;
@@ -11,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;

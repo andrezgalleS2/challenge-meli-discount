@@ -6,6 +6,7 @@ import com.technical.test.meli.challenge.dto.categories.CategoriesResponseServic
 import com.technical.test.meli.challenge.dto.categories.CategoryResponse;
 import com.technical.test.meli.challenge.adapter.IExternalGetCategories;
 import com.technical.test.meli.challenge.adapter.IExternalGetItems;
+import com.technical.test.meli.challenge.mocks.Mocks;
 import com.technical.test.meli.challenge.util.Constants;
 import com.technical.test.meli.challenge.util.FunctionsUtils;
 import com.technical.test.meli.challenge.service.ICategories;
@@ -64,7 +65,7 @@ public class CategoriesService implements ICategories {
         for (ItemsResponse item : items) {
             String categoryId = item.getBody().getCategoryId();
 
-            //CategoriesResponse categories = Mocks.getItemsForCategory(categoryId);
+            //zwCategoriesResponse categories = Mocks.getItemsForCategory(categoryId);
             CategoriesResponse categories = externalGetCategories.getCategories(categoryId);
 
             String categoryPath = categories.getPathFromRoot()[0].getId();
