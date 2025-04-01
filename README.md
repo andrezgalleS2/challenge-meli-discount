@@ -181,10 +181,47 @@ curl --location 'http://localhost:8080/api/meli/discount/categories?item_ids=MLA
 --header 'Cookie: JSESSIONID=E4BBF30322D98082D2A19C2E937D5F09'
 ```
 
-## Consideraciones
-- Un vendedor solo puede tener un ítem con **Meli Discount** activo.
-- Los ítems deben cumplir las reglas de solapamiento de fechas.
-- Para segmentación por categorías, los ítems no deben compartir la misma categoría padre.
+## Consideraciones para Escalar el Proyecto a 100k RPM 🔝
+
+Para escalar este proyecto a 100k RPM, tendremos que tener las siguientes consideraciones que mejorarán el rendimiento para el proyecto y lo prepararán para altos niveles de tráfico y estrés:
+
+### Escenario 1: Escalabilidad Vertical (única instancia)
+
+Nuestro proyecto podrá tener una única instancia y un plan de infraestructura que sea capaz de escalar según las reglas de consumo de la máquina. Esto permitirá que, en los picos de consumo, haya un mayor aprovisionamiento de recursos para gestionar la alta demanda. Asimismo, cuando no haya picos de tráfico, los recursos podrán reducirse para evitar su desperdicio.
+
+#### Consideraciones clave:
+1. **Autoescalado (Auto-Scaling)**: 
+   - Configurar un sistema de autoescalado para ajustar dinámicamente los recursos (CPU, memoria, etc.) según la demanda de tráfico. Servicios como **AWS Auto Scaling**, **Azure Scale Sets** o **Google Cloud Auto Scaling** son ideales para este tipo de configuraciones.
+
+2. **Manejo de Picos de Demanda**: 
+   - Asegurar que el sistema pueda reaccionar rápidamente durante los picos de tráfico para garantizar que la infraestructura pueda manejar un mayor número de solicitudes sin afectar el rendimiento.
+
+3. **Optimización de Costos**:
+   - Implementar estrategias para reducir los recursos durante los periodos de baja demanda, como el uso de instancias de bajo costo (**EC2 Spot Instances**) o ajustar dinámicamente la infraestructura para no desperdiciar recursos cuando la demanda disminuye.
+
+4. **Monitoreo y Alertas**:
+   - Implementar un sistema de monitoreo efectivo utilizando herramientas como **Prometheus** y **Grafana**, **AWS CloudWatch** o **Datadog**, para analizar métricas de uso y realizar ajustes automáticos de recursos según el comportamiento del sistema.
+
+---
+
+### Escenario 2: Escalabilidad Horizontal (instancias distribuidas)
+
+En este escenario, el sistema se puede distribuir en instancias, como en pods de Kubernetes, lo que permite gestionar mejor los recursos y el tráfico. Al multiplicar las instancias del proyecto, se podrá gestionar el tráfico de manera más eficiente, lo que es una opción viable si el sistema crece y se vuelve más robusto con bases de datos y otros componentes adicionales.
+
+#### Consideraciones clave:
+1. **Contenedores y Orquestación (Kubernetes)**:
+   - Usar **Kubernetes** para distribuir las instancias en contenedores dentro de un clúster de pods, lo que facilita la gestión de múltiples réplicas del sistema de forma eficiente. Esto garantizaría una mayor disponibilidad y escalabilidad.
+
+2. **Balanceo de Carga**:
+   - Implementar un balanceador de carga para distribuir el tráfico de manera equitativa entre todas las instancias del sistema. Soluciones como **NGINX**, **HAProxy** o servicios en la nube como **AWS Elastic Load Balancer (ELB)** o **Google Cloud Load Balancing** son esenciales para este propósito.
+
+3. **Escalabilidad Automática**:
+   - Configurar el autoescalado para ajustar automáticamente el número de réplicas según el tráfico entrante. **Kubernetes Horizontal Pod Autoscaler (HPA)** puede ser utilizado para gestionar la escalabilidad según las métricas de carga (como CPU o memoria).
+
+4. **Resiliencia y Recuperación Ante Fallos**:
+   - Utilizar estrategias de resiliencia como **Pod Disruption Budgets** y **Pod Affinity** en Kubernetes para asegurar la distribución adecuada de las instancias y garantizar la alta disponibilidad incluso durante fallos de componentes o recursos.
+
+
 
 ## Contacto
 Si tienes dudas o mejoras, puedes contactarme en `tu.email@dominio.com`.
