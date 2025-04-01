@@ -59,13 +59,13 @@ Después de haber configurado el entorno podremos runear el proyecto directament
 
 El proyecto tendrá como puerto de hospedaje `http://localhost:8080`.
 
-## 🏗️ Arquitectura por Capas en Spring Boot
+## Arquitectura por Capas en Spring Boot
 
 El proyecto meli-discount implementa una arquitectura por capas utilizando Spring Boot, lo que permite una mejor organización del código, separación de responsabilidades y escalabilidad:
 
 ![image](https://github.com/user-attachments/assets/bd5731de-80b4-4bdf-bef9-7ad352a02f41)
 
-## 📂 Archivos de Interés
+## Archivos de Interés
 
 A continuación, se describen algunos de los archivos clave en la implementación del proyecto:
 
@@ -202,7 +202,7 @@ curl --location 'http://localhost:8080/api/meli/discount/categories?item_ids=MLA
 --header 'Cookie: JSESSIONID=E4BBF30322D98082D2A19C2E937D5F09'
 ```
 
-## Consideraciones para Escalar el Proyecto a 100k RPM 🔝
+## Consideraciones para Escalar el Proyecto a 100k RPM
 
 Para escalar este proyecto a 100k RPM, tendremos que tener las siguientes consideraciones que mejorarán el rendimiento para el proyecto y lo preparará para altos niveles de tráfico y estrés:
 
